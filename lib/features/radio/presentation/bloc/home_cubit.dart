@@ -1,10 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labhouse_radio_station/features/radio/data/repositories/radio_station_repository_impl.dart';
-import 'package:labhouse_radio_station/features/radio/data/services/just_audio_service.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/domain/services/audio_service.dart';
 
 enum HomePageStatus { initial, loading, success, error }
 
@@ -12,9 +9,8 @@ enum RadioStatus { playing, paused }
 
 class HomeCubit extends Cubit<HomeState> {
   final RadioStationRepository _repository;
-  final AudioService _audioService = JustAudioService();
 
-  HomeCubit(this._repository) : super(HomeState());
+  HomeCubit(this._repository) : super(const HomeState());
 
   Future<void> init() async {
     emit(state.copyWith(status: HomePageStatus.initial));
@@ -34,27 +30,8 @@ class HomeCubit extends Cubit<HomeState> {
     return state.countries;
   }
 
-  void playPauseRadioStation(int index) {
-    if (state.radioStatus == RadioStatus.paused) {
-      playRadioStation(index);
-    } else {
-      stopRadioStation();
-    }
-  }
-
-  void playRadioStation(int index) {
-    _audioService.startPlaying(state.radioStations[index].url);
-    emit(state.copyWith(radioStatus: RadioStatus.playing));
-  }
-
-  void stopRadioStation() {
-    _audioService.stopPlaying();
-    emit(state.copyWith(radioStatus: RadioStatus.paused));
-  }
-
   @override
   Future<void> close() {
-    _audioService.dispose();
     return super.close();
   }
 }

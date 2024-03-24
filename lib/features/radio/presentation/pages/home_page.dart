@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/home_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_station_cubit.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/by_country_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/featured_stations_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/genres_list_widget.dart';
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               // Function callback for stretch
               return Future<void>.value();
             },
-            expandedHeight: 200.0,
+            expandedHeight: 160.0,
             //pinned: true,
             shape: const ContinuousRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -45,8 +45,7 @@ class HomePage extends StatelessWidget {
                 StretchMode.fadeTitle,
               ],
               centerTitle: false,
-
-              //title: const Text('Station discovery'),
+              title: const Text('Station discovery'),
               background: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(30),
@@ -85,9 +84,13 @@ class HomePage extends StatelessWidget {
                     return RecentlyPlayedWidget(
                       radioStations: state.radioStations,
                       onRadioStationClicked: (radioStation) {
-                        showRadioPlayer(context, radioStation, () {
-                          context.read<HomeCubit>().playPauseRadioStation(
-                              state.radioStations.indexOf(radioStation));
+                        context
+                            .read<RadioPlayerCubit>()
+                            .playPauseRadioStation(radioStation);
+                        showRadioPlayer(context, radioStation, onPlayPause: () {
+                          context
+                              .read<RadioPlayerCubit>()
+                              .playPauseRadioStation(radioStation);
                         });
                       },
                     );
@@ -125,9 +128,13 @@ class HomePage extends StatelessWidget {
                     return FeaturedStationsWidget(
                       radioStations: state.radioStations,
                       onRadioStationClicked: (radioStation) {
-                        showRadioPlayer(context, radioStation, () {
-                          context.read<HomeCubit>().playPauseRadioStation(
-                              state.radioStations.indexOf(radioStation));
+                        context
+                            .read<RadioPlayerCubit>()
+                            .playPauseRadioStation(radioStation);
+                        showRadioPlayer(context, radioStation, onPlayPause: () {
+                          context
+                              .read<RadioPlayerCubit>()
+                              .playPauseRadioStation(radioStation);
                         });
                       },
                     );
@@ -149,14 +156,14 @@ class HomePage extends StatelessWidget {
   }
 
   void showRadioPlayer(BuildContext myContext, RadioStation radioStation,
-      VoidCallback onPlayPause) {
+      {required VoidCallback onPlayPause}) {
     showModalBottomSheet(
       context: myContext,
       useRootNavigator: true,
       isScrollControlled: true,
       builder: (context) {
         return Container(
-          height: MediaQuery.of(myContext).size.height * 0.8,
+          height: MediaQuery.of(myContext).size.height * 0.95,
           child: MediaPlayerWidget(
             radioStation: radioStation,
             onPlayPause: onPlayPause,

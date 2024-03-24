@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_station_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/radio_player_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -69,12 +70,12 @@ class RadioStationsPage extends StatelessWidget {
             title: Text(radioStation.name),
             subtitle: Text(radioStation.country),
             onTap: () {
-              myContext.read<RadioStationCubit>().playRadioStation(index);
+              myContext.read<RadioPlayerCubit>().playRadioStation(radioStation);
 
               showRadioPlayer(myContext, radioStation, () {
                 myContext
-                    .read<RadioStationCubit>()
-                    .playPauseRadioStation(index);
+                    .read<RadioPlayerCubit>()
+                    .playPauseRadioStation(radioStation);
               });
             });
       },
@@ -88,7 +89,7 @@ class RadioStationsPage extends StatelessWidget {
       useRootNavigator: true,
       isScrollControlled: true,
       builder: (context) {
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(myContext).size.height * 0.8,
           child: MediaPlayerWidget(
             radioStation: radioStation,
