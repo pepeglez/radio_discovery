@@ -4,21 +4,36 @@ import 'package:labhouse_radio_station/features/radio/domain/services/audio_serv
 
 import 'dart:async';
 
-
-
 class JustAudioService implements AudioService {
   final _player = AudioPlayer();
   final _audioStatusController = StreamController<AudioStatus>.broadcast();
 
   @override
   Future<void> startPlaying(String url) async {
+    debugPrint('Playing audio from: $url');
     try {
       await _player.setUrl(url);
       _player.play();
     } catch (e) {
-      debugPrint('-- Error playing audio: $e');
+      debugPrint('Error playing audio: $e');
+
+      final newUrl = _checkUrl(url);
+      if (newUrl != null) {
+        debugPrint('Trying with HTTPS...');
+        await startPlaying(newUrl);
+        return;
+      }
+
       _audioStatusController.add(AudioStatus.error);
     }
+  }
+
+  // check if url is with http or https if tru, returns the usrl with https
+  String? _checkUrl(String url) {
+    if (url.startsWith('http://')) {
+      return url.replaceFirst('http://', 'https://');
+    }
+    return null;
   }
 
   @override

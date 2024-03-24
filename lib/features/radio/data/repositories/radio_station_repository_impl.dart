@@ -12,8 +12,17 @@ class RadioStationRepositoryImpl implements RadioStationRepository {
   RadioStationRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<String, List<RadioStation>>> getRadioStations() async {
-    final radioStations = await remoteDataSource.getRadioStations();
+  Future<Either<String, List<RadioStation>>> getRadioStations(
+      {String? tag, String? country}) async {
+    final Either<String, List<RadioStation>> radioStations;
+
+    if (tag != null) {
+      radioStations = await remoteDataSource.getRadioStationsByTag(tag);
+    } else if (country != null) {
+      radioStations = await remoteDataSource.getRadioStationsByCountry(country);
+    } else {
+      radioStations = await remoteDataSource.getRadioStations();
+    }
     
     radioStations.fold((failure) => failure, (radioStations) {
       unawaited(_storeRadioStations(radioStations));
@@ -34,5 +43,6 @@ class RadioStationRepositoryImpl implements RadioStationRepository {
 }
 
 abstract class RadioStationRepository {
-  Future<Either<String, List<RadioStation>>> getRadioStations();
+  Future<Either<String, List<RadioStation>>> getRadioStations(
+      {String? tag, String? country});
 }

@@ -12,7 +12,7 @@ class RadioStation {
   final String stationUuid;
 
   @JsonKey(name: 'serveruuid')
-  final String serverUuid;
+  final String? serverUuid;
 
   final String name;
   final String url;
@@ -40,41 +40,41 @@ class RadioStation {
   final int votes;
 
   @JsonKey(name: 'lastchangetime')
-  final String lastChangeTime;
+  final String? lastChangeTime;
 
   @JsonKey(name: 'lastchangetime_iso8601')
-  final String lastChangeTimeIso8601;
+  final String? lastChangeTimeIso8601;
 
   final String codec;
   final int bitrate;
   final int hls;
 
   @JsonKey(name: 'lastcheckok')
-  final int lastCheckOk;
+  final int? lastCheckOk;
 
   @JsonKey(name: 'lastchecktime')
-  final String lastCheckTime;
+  final String? lastCheckTime;
 
   @JsonKey(name: 'lastchecktime_iso8601')
-  final String lastCheckTimeIso8601;
+  final String? lastCheckTimeIso8601;
 
   @JsonKey(name: 'lastcheckoktime')
-  final String lastCheckOkTime;
+  final String? lastCheckOkTime;
 
   @JsonKey(name: 'lastcheckoktime_iso8601')
-  final String lastCheckOkTimeIso8601;
+  final String? lastCheckOkTimeIso8601;
 
   @JsonKey(name: 'lastlocalchecktime')
-  final String lastLocalCheckTime;
+  final String? lastLocalCheckTime;
 
   @JsonKey(name: 'lastlocalchecktime_iso8601')
-  final String lastLocalCheckTimeIso8601;
+  final String? lastLocalCheckTimeIso8601;
 
   @JsonKey(name: 'clicktimestamp')
-  final String clickTimestamp;
+  final String? clickTimestamp;
 
   @JsonKey(name: 'clicktimestamp_iso8601')
-  final String clickTimestampIso8601;
+  final String? clickTimestampIso8601;
 
   final int clickcount;
   final int clicktrend;

@@ -1,16 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:labhouse_radio_station/core/presentation/router/app_router.dart';
+import 'package:labhouse_radio_station/core/presentation/widgets/my_flexible_app_bar.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/home_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/helpers/radio_player_helper.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/by_country_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/featured_stations_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/genres_list_widget.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/radio_player_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/recently_played_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,59 +21,12 @@ class HomePage extends StatelessWidget {
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
-          SliverAppBar(
-            stretch: true,
-            leading: const Icon(Icons.radio),
-            elevation: 4,
-            onStretchTrigger: () {
-              // Function callback for stretch
-              return Future<void>.value();
-            },
-            expandedHeight: 160.0,
-            //pinned: true,
-            shape: const ContinuousRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              ),
+          const MyFlexibleAppBar(
+            leading: Icon(
+              Icons.radio,
+              color: Colors.white,
             ),
-            flexibleSpace: FlexibleSpaceBar(
-              stretchModes: const <StretchMode>[
-                StretchMode.zoomBackground,
-                StretchMode.blurBackground,
-                StretchMode.fadeTitle,
-              ],
-              centerTitle: false,
-              title: const Text('Station discovery'),
-              background: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    Image.network(
-                      'https://howtostartanllc.com/images/business-ideas/business-idea-images/radio-station.jpg',
-                      fit: BoxFit.cover,
-                      alignment: Alignment.centerLeft,
-                    ),
-                    const DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment(0.0, 0.5),
-                          end: Alignment.center,
-                          colors: <Color>[
-                            Color(0x60000000),
-                            Color(0x00000000),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            title: 'Station discovery',
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -109,6 +61,7 @@ class HomePage extends StatelessWidget {
                 GenresListWidget(
                   genres: context.read<HomeCubit>().getGenreList(),
                   onGenreSelected: (genre) {
+                    MyAppRouter.navigateTo('/stations/genre/$genre');
                     debugPrint('Genre selected: $genre');
                   },
                 ),
@@ -119,6 +72,7 @@ class HomePage extends StatelessWidget {
                     countries: context.read<HomeCubit>().getCountryList(),
                     onCountryClicked: (s) {
                       debugPrint('Country clicked: $s');
+                      MyAppRouter.navigateTo('/stations/country/$s');
                     }),
                 const SizedBox(
                   height: 32,
@@ -152,30 +106,6 @@ class HomePage extends StatelessWidget {
         onPressed: () {},
         child: const Icon(Icons.shuffle),
       ),
-    );
-  }
-
-  void showRadioPlayer(BuildContext myContext, RadioStation radioStation,
-      {required VoidCallback onPlayPause}) {
-    showModalBottomSheet(
-      context: myContext,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      builder: (context) {
-        return Container(
-          height: MediaQuery.of(myContext).size.height * 0.95,
-          child: MediaPlayerWidget(
-            radioStation: radioStation,
-            onPlayPause: onPlayPause,
-            onNext: () {
-              // Handle next
-            },
-            onPrevious: () {
-              // Handle previous
-            },
-          ),
-        );
-      },
     );
   }
 }
