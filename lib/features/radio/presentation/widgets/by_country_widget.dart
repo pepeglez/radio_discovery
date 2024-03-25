@@ -15,13 +15,25 @@ class ByCountryWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.only(left: 24),
-          child: Text(
-            'By country',
-            style: Theme.of(context).textTheme.titleSmall,
+        Padding(
+            padding: const EdgeInsets.only(left: 24,),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.flag,
+                  size: 20,
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  'By Country',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+            ),
           ),
-        ),
         const SizedBox(
           height: 16,
         ),

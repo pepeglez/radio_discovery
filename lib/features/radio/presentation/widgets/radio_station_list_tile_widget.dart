@@ -54,28 +54,43 @@ class RadioStationListTileWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 4),
-                Wrap(
-                  spacing: 2,
-                  alignment: WrapAlignment.start,
-                  children: radioStation.tags
-                      .split(',')
-                      .take(7)
-                      .map((tag) => Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                tag,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                ),
+                TagsListWidget(radioStation: radioStation),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class TagsListWidget extends StatelessWidget {
+  const TagsListWidget({
+    super.key,
+    required this.radioStation,
+    this.centered = false,
+  });
+
+  final RadioStation radioStation;
+  final bool centered;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 2,
+      alignment: centered ? WrapAlignment.center : WrapAlignment.start,
+      children: radioStation.tags.split(',').take(7).map((tag) {
+        if (tag.isEmpty) return const SizedBox.shrink();
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(
+              tag.toUpperCase(),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

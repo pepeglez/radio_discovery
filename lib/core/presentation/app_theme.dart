@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primarySwatch: Colors.orange,
+  primaryColor: Colors.orange,
   scaffoldBackgroundColor: Colors.grey[200],
   textTheme: textTheme,
   cardColor: Colors.grey[300],
@@ -12,6 +13,7 @@ final ThemeData lightTheme = ThemeData(
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primarySwatch: Colors.deepPurple,
+  primaryColor: Colors.deepPurple,
   cardColor: Colors.grey[800],
   textTheme: textTheme,
   scaffoldBackgroundColor: Colors.grey[900],

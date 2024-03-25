@@ -33,7 +33,50 @@ class HomePage extends StatelessWidget {
               <Widget>[
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    return RecentlyPlayedWidget(
+                    return HorizontalStationListWidget(
+                      title: 'My favorites',
+                      icons: Icons.favorite,
+                      listItemSize: ListItemSize.small,
+                      radioStations: state.favoritesRadioStations,
+                      onRadioStationClicked: (radioStation) {
+                        context
+                            .read<RadioPlayerCubit>()
+                            .playPauseRadioStation(radioStation);
+                        showRadioPlayer(context, radioStation, onPlayPause: () {
+                          context
+                              .read<RadioPlayerCubit>()
+                              .playPauseRadioStation(radioStation);
+                        });
+                      },
+                    );
+                  },
+                ),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return HorizontalStationListWidget(
+                      title: 'Recently played',
+                      icons: Icons.history,
+                      listItemSize: ListItemSize.large,
+                      radioStations: state.recentRadioStations,
+                      onRadioStationClicked: (radioStation) {
+                        context
+                            .read<RadioPlayerCubit>()
+                            .playPauseRadioStation(radioStation);
+                        showRadioPlayer(context, radioStation, onPlayPause: () {
+                          context
+                              .read<RadioPlayerCubit>()
+                              .playPauseRadioStation(radioStation);
+                        });
+                      },
+                    );
+                  },
+                ),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return HorizontalStationListWidget(
+                      title: 'Featured stations',
+                      icons: Icons.star,
+                      listItemSize: ListItemSize.large,
                       radioStations: state.radioStations,
                       onRadioStationClicked: (radioStation) {
                         context
@@ -50,13 +93,6 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 32,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 24, top: 12),
-                  child: Text(
-                    'Genres',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
                 ),
                 GenresListWidget(
                   genres: context.read<HomeCubit>().getGenreList(),
@@ -74,26 +110,6 @@ class HomePage extends StatelessWidget {
                       debugPrint('Country clicked: $s');
                       MyAppRouter.navigateTo('/stations/country/$s');
                     }),
-                const SizedBox(
-                  height: 32,
-                ),
-                BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    return FeaturedStationsWidget(
-                      radioStations: state.radioStations,
-                      onRadioStationClicked: (radioStation) {
-                        context
-                            .read<RadioPlayerCubit>()
-                            .playPauseRadioStation(radioStation);
-                        showRadioPlayer(context, radioStation, onPlayPause: () {
-                          context
-                              .read<RadioPlayerCubit>()
-                              .playPauseRadioStation(radioStation);
-                        });
-                      },
-                    );
-                  },
-                ),
                 const SizedBox(
                   height: 200,
                 ),

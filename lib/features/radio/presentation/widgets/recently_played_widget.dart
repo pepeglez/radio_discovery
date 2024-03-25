@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
 
-class RecentlyPlayedWidget extends StatelessWidget {
+enum ListItemSize { small, large }
+
+class HorizontalStationListWidget extends StatelessWidget {
+  final String title;
+  final ListItemSize listItemSize;
+  final IconData icons;
   final List<RadioStation> radioStations;
   final Function(RadioStation) onRadioStationClicked;
 
-  const RecentlyPlayedWidget({
+  const HorizontalStationListWidget({
     super.key,
+    required this.title,
+    this.listItemSize = ListItemSize.small,
+    required this.icons,
     required this.radioStations,
     required this.onRadioStationClicked,
   });
@@ -18,9 +26,17 @@ class RecentlyPlayedWidget extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.only(left: 24, top: 36),
-          child: Text(
-            'Recently played',
-            style: Theme.of(context).textTheme.titleSmall,
+          child: Row(
+            children: [
+              Icon(icons, size: 20, color: Theme.of(context).primaryColor,),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
           ),
         ),
         const SizedBox(
@@ -28,7 +44,7 @@ class RecentlyPlayedWidget extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
-          height: 120,
+          height: listItemSize == ListItemSize.small ? 120 : 180,
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overscroll) {
               overscroll.disallowIndicator();
@@ -40,36 +56,23 @@ class RecentlyPlayedWidget extends StatelessWidget {
                 itemBuilder: ((context, index) {
                   return GestureDetector(
                     onTap: () => onRadioStationClicked(radioStations[index]),
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(
-                          children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50)),
-                              elevation: 4,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  radioStations[index].favicon.isNotEmpty
-                                      ? radioStations[index].favicon
-                                      : 'https://via.placeholder.com/150',
-                                  width: 60,
-                                  height: 60,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            SizedBox(
-                                width: 60,
-                                child: Text(
-                                  radioStations[index].name,
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ))
-                          ],
-                        )),
+                    child: Card(
+                      margin: const  EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      elevation: 4,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            radioStations[index].favicon.isNotEmpty
+                                ? radioStations[index].favicon
+                                : 'https://via.placeholder.com/150',
+                          ),
+                        ),
+                      ),
+                    ),
                   );
                 })),
           ),

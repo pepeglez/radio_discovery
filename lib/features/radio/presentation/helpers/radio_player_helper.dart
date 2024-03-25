@@ -9,18 +9,15 @@ void showRadioPlayer(BuildContext myContext, RadioStation radioStation,
     useRootNavigator: true,
     isScrollControlled: true,
     builder: (context) {
-      return Container(
-        height: MediaQuery.of(myContext).size.height * 0.95,
-        child: MediaPlayerWidget(
-          radioStation: radioStation,
-          onPlayPause: onPlayPause,
-          onNext: () {
-            // Handle next
-          },
-          onPrevious: () {
-            // Handle previous
-          },
-        ),
+      return MediaPlayerWidget(
+        radioStation: radioStation,
+        onPlayPause: onPlayPause,
+        onNext: () {
+          // Handle next
+        },
+        onPrevious: () {
+          // Handle previous
+        },
       );
     },
   );

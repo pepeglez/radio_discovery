@@ -21,7 +21,7 @@ class MyFlexibleAppBar extends StatelessWidget {
         return Future<void>.value();
       },
       expandedHeight: 160.0,
-      //pinned: true,
+      pinned: true,
       shape: const ContinuousRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(50),

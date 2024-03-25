@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labhouse_radio_station/core/presentation/app_theme.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/widgets/radio_station_list_tile_widget.dart';
 import 'package:lottie/lottie.dart';
 
 class MediaPlayerWidget extends StatelessWidget {
@@ -24,87 +25,122 @@ class MediaPlayerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(radioStation.favicon),
-                fit: BoxFit.cover,
-              ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(radioStation.favicon),
+              fit: BoxFit.cover,
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Theme.of(context).radioPlayerGradient1,
-                  Theme.of(context).radioPlayerGradient2,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).radioPlayerGradient1,
+                Theme.of(context).radioPlayerGradient2,
+              ],
+            ),
+          ),
+        ),
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          child: Container(
+            color: Colors.black.withOpacity(0),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 60),
+          child: Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_downward_sharp),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  //const SizedBox(width: 16),
+                  Flexible(
+                    flex: 5,
+                    child: Text(
+                      'Now playing',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: IconButton(
+                      icon: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+                        builder: (context, state) {
+                          return state.isFavorite
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(Icons.favorite_border);
+                        },
+                      ),
+                      onPressed: () {
+                        debugPrint('Favorite');
+                        context
+                            .read<RadioPlayerCubit>()
+                            .toggleFavorite(radioStation);
+                      },
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: Container(
-              color: Colors.black.withOpacity(0),
-            ),
-          ),
-          SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_downward_sharp),
-                      onPressed: () {},
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      'Now playing',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Center(
+              Expanded(
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card(
+                          //margin: EdgeInsets.symmetric(horizontal: width * 0.1),
                           elevation: 8,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(80),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(80),
-                            child: Image.network(
-                              radioStation.favicon.isNotEmpty
-                                  ? radioStation.favicon
-                                  : 'https://via.placeholder.com/150',
-                              width: width * 0.8,
-                              fit: BoxFit.cover,
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(80),
+                              child: Image.network(
+                                radioStation.favicon.isNotEmpty
+                                    ? radioStation.favicon
+                                    : 'https://via.placeholder.com/150',
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 32),
+                        TagsListWidget(
+                          radioStation: radioStation,
+                          centered: true,
+                        ),
+                        const SizedBox(height: 8),
                         Text(
                           radioStation.name,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Text(
                           radioStation.country,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        Text(
-                          radioStation.language,
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         //const SizedBox(height: 32),
                         SizedBox(
@@ -133,9 +169,23 @@ class MediaPlayerWidget extends StatelessWidget {
                                       ),
                                     );
                                   case RadioStatus.error:
-                                    return const SizedBox(
+                                    return SizedBox(
                                       height: 60,
-                                      child: Text('ERROR'),
+                                      child: Column(
+                                        children: [
+                                          const Icon(
+                                            Icons.error,
+                                            color: Colors.red,
+                                            size: 32,
+                                          ),
+                                          Text(
+                                            'This station cannot be played.',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                          ),
+                                        ],
+                                      ),
                                     );
                                 }
                               },
@@ -146,40 +196,40 @@ class MediaPlayerWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PlayerIconButton(
-                        icon: Icons.skip_previous_sharp,
-                        onPressed: onPrevious,
-                        size: PlayerButtonSize.small,
-                      ),
-                      const SizedBox(width: 16),
-                      BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
-                        builder: (context, state) {
-                          return PlayerIconButton(
-                              icon: state.radioStatus == RadioStatus.playing
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                              onPressed: onPlayPause);
-                        },
-                      ),
-                      const SizedBox(width: 16),
-                      PlayerIconButton(
-                        icon: Icons.skip_next_sharp,
-                        onPressed: onNext,
-                        size: PlayerButtonSize.small,
-                      ),
-                    ],
-                  ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PlayerIconButton(
+                      icon: Icons.skip_previous_sharp,
+                      onPressed: onPrevious,
+                      size: PlayerButtonSize.small,
+                    ),
+                    const SizedBox(width: 16),
+                    BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+                      builder: (context, state) {
+                        return PlayerIconButton(
+                            icon: state.radioStatus == RadioStatus.playing
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                            onPressed: onPlayPause);
+                      },
+                    ),
+                    const SizedBox(width: 16),
+                    PlayerIconButton(
+                      icon: Icons.skip_next_sharp,
+                      onPressed: onNext,
+                      size: PlayerButtonSize.small,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -214,7 +264,9 @@ class PlayerIconButton extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               Colors.black,
-              (size == PlayerButtonSize.big ? Colors.blue : Colors.grey)
+              (size == PlayerButtonSize.big
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey)
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

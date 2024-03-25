@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labhouse_radio_station/features/radio/data/repositories/radio_station_repository_impl.dart';
@@ -9,6 +11,8 @@ enum RadioStatus { playing, paused }
 
 class HomeCubit extends Cubit<HomeState> {
   final RadioStationRepository _repository;
+  StreamSubscription? _favoriteStationsSubscription;
+  StreamSubscription? _recentStationsSubscription;
 
   HomeCubit(this._repository) : super(const HomeState());
 
@@ -20,6 +24,26 @@ class HomeCubit extends Cubit<HomeState> {
       (radioStations) => emit(state.copyWith(
           status: HomePageStatus.success, radioStations: radioStations)),
     );
+
+    _bindFavoriteStations();
+    _bindRecentStations();
+  }
+
+  void _bindFavoriteStations() {
+    unawaited(_repository.getFavoriteRadioStations());
+    _favoriteStationsSubscription =
+        _repository.favoriteRadioStationStream.listen((radioStations) {
+      emit(state.copyWith(
+          favoritesRadioStations: radioStations.values.toList()));
+    });
+  }
+
+  void _bindRecentStations() {
+    unawaited(_repository.getRecentRadioStations());
+    _recentStationsSubscription =
+        _repository.recentRadioStationStream.listen((radioStations) {
+      emit(state.copyWith(recentRadioStations: radioStations.values.toList()));
+    });
   }
 
   List<String> getGenreList() {
@@ -32,6 +56,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   @override
   Future<void> close() {
+    _favoriteStationsSubscription?.cancel();
+    _recentStationsSubscription?.cancel();
     return super.close();
   }
 }
@@ -40,6 +66,8 @@ class HomeState extends Equatable {
   final HomePageStatus status;
   final RadioStatus radioStatus;
   final List<RadioStation> radioStations;
+  final List<RadioStation> favoritesRadioStations;
+  final List<RadioStation> recentRadioStations;
   final List<String> genres;
   final List<String> countries;
 
@@ -47,6 +75,8 @@ class HomeState extends Equatable {
     this.status = HomePageStatus.initial,
     this.radioStatus = RadioStatus.paused,
     this.radioStations = const [],
+    this.favoritesRadioStations = const [],
+    this.recentRadioStations = const [],
     this.genres = const [
       'rock',
       'pop',
@@ -70,12 +100,20 @@ class HomeState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [status, radioStatus, radioStations];
+  List<Object?> get props => [
+        status,
+        radioStatus,
+        radioStations,
+        favoritesRadioStations,
+        recentRadioStations
+      ];
 
   HomeState copyWith({
     HomePageStatus? status,
     RadioStatus? radioStatus,
     List<RadioStation>? radioStations,
+    List<RadioStation>? favoritesRadioStations,
+    List<RadioStation>? recentRadioStations,
     List<String>? genres,
     List<String>? countries,
   }) {
@@ -85,6 +123,9 @@ class HomeState extends Equatable {
       radioStations: radioStations ?? this.radioStations,
       genres: genres ?? this.genres,
       countries: countries ?? this.countries,
+      favoritesRadioStations:
+          favoritesRadioStations ?? this.favoritesRadioStations,
+      recentRadioStations: recentRadioStations ?? this.recentRadioStations,
     );
   }
 }
