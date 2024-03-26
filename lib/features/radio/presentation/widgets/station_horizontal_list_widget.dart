@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/widgets/station_card_widget.dart';
 
 enum ListItemSize { small, large }
 
-class HorizontalStationListWidget extends StatelessWidget {
+class StationHorizontalListWidget extends StatelessWidget {
   final String title;
   final ListItemSize listItemSize;
   final IconData icons;
   final List<RadioStation> radioStations;
   final Function(RadioStation) onRadioStationClicked;
 
-  const HorizontalStationListWidget({
+  const StationHorizontalListWidget({
     super.key,
     required this.title,
     this.listItemSize = ListItemSize.small,
@@ -28,7 +29,11 @@ class HorizontalStationListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(left: 24, top: 36),
           child: Row(
             children: [
-              Icon(icons, size: 20, color: Theme.of(context).primaryColor,),
+              Icon(
+                icons,
+                size: 20,
+                color: Theme.of(context).primaryColor,
+              ),
               const SizedBox(
                 width: 8,
               ),
@@ -56,23 +61,7 @@ class HorizontalStationListWidget extends StatelessWidget {
                 itemBuilder: ((context, index) {
                   return GestureDetector(
                     onTap: () => onRadioStationClicked(radioStations[index]),
-                    child: Card(
-                      margin: const  EdgeInsets.all(8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      elevation: 4,
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            radioStations[index].favicon.isNotEmpty
-                                ? radioStations[index].favicon
-                                : 'https://via.placeholder.com/150',
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: StationCardWidget(radioStation: radioStations[index]),
                   );
                 })),
           ),
@@ -81,3 +70,5 @@ class HorizontalStationListWidget extends StatelessWidget {
     );
   }
 }
+
+

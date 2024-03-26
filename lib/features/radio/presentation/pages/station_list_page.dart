@@ -6,6 +6,7 @@ import 'package:labhouse_radio_station/features/radio/domain/entities/radio_stat
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/bloc/station_list_cubit.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/helpers/radio_player_helper.dart';
+import 'package:labhouse_radio_station/features/radio/presentation/widgets/mini_radio_player_widget.dart';
 import 'package:labhouse_radio_station/features/radio/presentation/widgets/radio_station_list_tile_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -17,6 +18,21 @@ class StationListPage extends StatelessWidget {
     return BlocBuilder<StationListCubit, StationListState>(
       builder: (context, state) {
         return Scaffold(
+          bottomNavigationBar: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+            builder: (context, state) {
+              return state.selectedStation != null
+                  ? MiniRadioPlayerWidget(
+                      radioStation: state.selectedStation!,
+                      radioStatus: state.radioStatus,
+                      onPlayPause: () {
+                        context
+                            .read<RadioPlayerCubit>()
+                            .playPauseRadioStation(state.selectedStation!);
+                      },
+                    )
+                  : const SizedBox.shrink();
+            },
+          ),
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics()),

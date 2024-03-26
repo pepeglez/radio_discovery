@@ -7,8 +7,6 @@ import 'package:labhouse_radio_station/features/radio/domain/entities/radio_stat
 
 enum HomePageStatus { initial, loading, success, error }
 
-enum RadioStatus { playing, paused }
-
 class HomeCubit extends Cubit<HomeState> {
   final RadioStationRepository _repository;
   StreamSubscription? _favoriteStationsSubscription;
@@ -64,7 +62,6 @@ class HomeCubit extends Cubit<HomeState> {
 
 class HomeState extends Equatable {
   final HomePageStatus status;
-  final RadioStatus radioStatus;
   final List<RadioStation> radioStations;
   final List<RadioStation> favoritesRadioStations;
   final List<RadioStation> recentRadioStations;
@@ -73,7 +70,6 @@ class HomeState extends Equatable {
 
   const HomeState({
     this.status = HomePageStatus.initial,
-    this.radioStatus = RadioStatus.paused,
     this.radioStations = const [],
     this.favoritesRadioStations = const [],
     this.recentRadioStations = const [],
@@ -100,17 +96,11 @@ class HomeState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        status,
-        radioStatus,
-        radioStations,
-        favoritesRadioStations,
-        recentRadioStations
-      ];
+  List<Object?> get props =>
+      [status, radioStations, favoritesRadioStations, recentRadioStations];
 
   HomeState copyWith({
     HomePageStatus? status,
-    RadioStatus? radioStatus,
     List<RadioStation>? radioStations,
     List<RadioStation>? favoritesRadioStations,
     List<RadioStation>? recentRadioStations,
@@ -119,7 +109,6 @@ class HomeState extends Equatable {
   }) {
     return HomeState(
       status: status ?? this.status,
-      radioStatus: radioStatus ?? this.radioStatus,
       radioStations: radioStations ?? this.radioStations,
       genres: genres ?? this.genres,
       countries: countries ?? this.countries,

@@ -39,6 +39,7 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
   }
 
   void playPauseRadioStation(RadioStation station) {
+    emit(state.copyWith(selectedStation: station));
     if (state.radioStatus != RadioStatus.playing ||
         (state.radioStatus == RadioStatus.playing &&
             state.selectedStationId != station.stationUuid)) {
@@ -88,24 +89,29 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
 class RadioPlayerState extends Equatable {
   final RadioStatus radioStatus;
   final String? selectedStationId;
+  final RadioStation? selectedStation;
   final bool isFavorite;
 
   const RadioPlayerState({
     this.radioStatus = RadioStatus.idle,
     this.selectedStationId,
+    this.selectedStation,
     this.isFavorite = false,
   });
 
   @override
-  List<Object?> get props => [radioStatus, selectedStationId, isFavorite];
+  List<Object?> get props =>
+      [radioStatus, selectedStationId, selectedStation, isFavorite];
 
   RadioPlayerState copyWith({
     RadioStatus? radioStatus,
     String? selectedStationId,
+    RadioStation? selectedStation,
     bool? isFavorite,
   }) {
     return RadioPlayerState(
       radioStatus: radioStatus ?? this.radioStatus,
+      selectedStation: selectedStation ?? this.selectedStation,
       selectedStationId: selectedStationId ?? this.selectedStationId,
       isFavorite: isFavorite ?? this.isFavorite,
     );
