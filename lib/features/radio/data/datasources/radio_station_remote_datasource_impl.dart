@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 
 class RadioStationRemoteDatasourceImpl implements RadioStationRemoteDatasource {
   final Dio _dio =

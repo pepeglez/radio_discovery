@@ -5,19 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "labhouse_radio_station",
+            "name": "radio_discovery",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug"
         },
         {
-            "name": "labhouse_radio_station (profile mode)",
+            "name": "radio_discovery (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "labhouse_radio_station (release mode)",
+            "name": "radio_discovery (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

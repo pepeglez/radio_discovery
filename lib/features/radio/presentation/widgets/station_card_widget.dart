@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 
 class StationCardWidget extends StatelessWidget {
   const StationCardWidget({
@@ -13,8 +13,7 @@ class StationCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 4,
       child: AspectRatio(
         aspectRatio: 1,

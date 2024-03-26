@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 
 class FeaturedStationsWidget extends StatelessWidget {
   final List<RadioStation> radioStations;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/tag_list_widget.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/tag_list_widget.dart';
 
 class RadioStationListTileWidget extends StatelessWidget {
   const RadioStationListTileWidget({
@@ -64,5 +64,3 @@ class RadioStationListTileWidget extends StatelessWidget {
     );
   }
 }
-
-

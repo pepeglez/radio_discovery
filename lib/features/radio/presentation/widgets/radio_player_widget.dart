@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:labhouse_radio_station/core/presentation/app_theme.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/tag_list_widget.dart';
+import 'package:radio_discovery/core/presentation/app_theme.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/tag_list_widget.dart';
 import 'package:lottie/lottie.dart';
 
 class MediaPlayerWidget extends StatelessWidget {

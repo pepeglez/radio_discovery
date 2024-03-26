@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:labhouse_radio_station/features/radio/data/repositories/radio_station_repository_impl.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/data/repositories/radio_station_repository_impl.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 
 enum StationListPageStatus { initial, loading, success, error }
 

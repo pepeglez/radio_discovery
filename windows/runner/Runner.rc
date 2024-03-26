@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "labhouse_radio_station" "\0"
+            VALUE "FileDescription", "radio_discovery" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "labhouse_radio_station" "\0"
+            VALUE "InternalName", "radio_discovery" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "labhouse_radio_station.exe" "\0"
-            VALUE "ProductName", "labhouse_radio_station" "\0"
+            VALUE "OriginalFilename", "radio_discovery.exe" "\0"
+            VALUE "ProductName", "radio_discovery" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

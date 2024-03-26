@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/helpers/radio_player_helper.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/station_card_widget.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/helpers/radio_player_helper.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/station_card_widget.dart';
 
 class MiniRadioPlayerWidget extends StatelessWidget {
   final RadioStation radioStation;

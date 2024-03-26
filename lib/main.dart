@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:labhouse_radio_station/core/presentation/app_theme.dart';
-import 'package:labhouse_radio_station/core/presentation/router/app_router.dart';
-import 'package:labhouse_radio_station/features/radio/data/datasources/radio_station_local_datasource_impl.dart';
-import 'package:labhouse_radio_station/features/radio/data/datasources/radio_station_remote_datasource_impl.dart';
-import 'package:labhouse_radio_station/features/radio/data/repositories/radio_station_repository_impl.dart';
-import 'package:labhouse_radio_station/features/radio/data/services/just_audio_service.dart';
-import 'package:labhouse_radio_station/features/radio/domain/services/audio_service.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:radio_discovery/core/presentation/app_theme.dart';
+import 'package:radio_discovery/core/presentation/router/app_router.dart';
+import 'package:radio_discovery/features/radio/data/datasources/radio_station_local_datasource_impl.dart';
+import 'package:radio_discovery/features/radio/data/datasources/radio_station_remote_datasource_impl.dart';
+import 'package:radio_discovery/features/radio/data/repositories/radio_station_repository_impl.dart';
+import 'package:radio_discovery/features/radio/data/services/just_audio_service.dart';
+import 'package:radio_discovery/features/radio/domain/services/audio_service.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         getIt(),
       )..init(),
       child: MaterialApp.router(
-        title: 'Labhouse Radio Station',
+        title: 'Radio Discovery',
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.dark,

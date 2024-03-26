@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:labhouse_radio_station/core/presentation/router/app_router.dart';
-import 'package:labhouse_radio_station/core/presentation/widgets/my_flexible_app_bar.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/home_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/radio_payer_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/helpers/radio_player_helper.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/by_country_widget.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/genres_list_widget.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/mini_radio_player_widget.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/station_horizontal_list_widget.dart';
+import 'package:radio_discovery/core/presentation/router/app_router.dart';
+import 'package:radio_discovery/core/presentation/widgets/my_flexible_app_bar.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/home_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/helpers/radio_player_helper.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/by_country_widget.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/genres_list_widget.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/mini_radio_player_widget.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/station_horizontal_list_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -137,5 +137,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-

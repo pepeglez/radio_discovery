@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:labhouse_radio_station/features/radio/data/datasources/radio_station_local_datasource_impl.dart';
-import 'package:labhouse_radio_station/features/radio/data/datasources/radio_station_remote_datasource_impl.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/data/datasources/radio_station_local_datasource_impl.dart';
+import 'package:radio_discovery/features/radio/data/datasources/radio_station_remote_datasource_impl.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 
 class RadioStationRepositoryImpl implements RadioStationRepository {
   late RadioStationRemoteDatasource remoteDataSource;

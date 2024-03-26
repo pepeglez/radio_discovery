@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/home_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/bloc/station_list_cubit.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/pages/home_page.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/pages/station_list_page.dart';
-import 'package:labhouse_radio_station/main.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/home_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/bloc/station_list_cubit.dart';
+import 'package:radio_discovery/features/radio/presentation/pages/home_page.dart';
+import 'package:radio_discovery/features/radio/presentation/pages/station_list_page.dart';
+import 'package:radio_discovery/main.dart';
 
 class MyAppRouter {
   static const String root = '/';

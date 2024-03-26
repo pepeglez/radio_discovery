@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/radio_player_widget.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/radio_player_widget.dart';
 
 void showRadioPlayer(BuildContext myContext, RadioStation radioStation,
     {required VoidCallback onPlayPause}) {

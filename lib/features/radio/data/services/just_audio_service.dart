@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:labhouse_radio_station/features/radio/domain/services/audio_service.dart';
+import 'package:radio_discovery/features/radio/domain/services/audio_service.dart';
 
 import 'dart:async';
 

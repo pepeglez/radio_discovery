@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.labhouse_radio_station">
+    package="com.radio_discovery.app">
    <application
-        android:label="labhouse_radio_station"
+        android:label="Radio Discovery"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

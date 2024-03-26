@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:labhouse_radio_station/features/radio/domain/entities/radio_station.dart';
-import 'package:labhouse_radio_station/features/radio/presentation/widgets/station_card_widget.dart';
+import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/station_card_widget.dart';
 
 enum ListItemSize { small, large }
 
@@ -61,7 +61,8 @@ class StationHorizontalListWidget extends StatelessWidget {
                 itemBuilder: ((context, index) {
                   return GestureDetector(
                     onTap: () => onRadioStationClicked(radioStations[index]),
-                    child: StationCardWidget(radioStation: radioStations[index]),
+                    child:
+                        StationCardWidget(radioStation: radioStations[index]),
                   );
                 })),
           ),
@@ -70,5 +71,3 @@ class StationHorizontalListWidget extends StatelessWidget {
     );
   }
 }
-
-

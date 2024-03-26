@@ -1,4 +1,4 @@
-# labhouse_radio_station
+# radio_discovery
 
 A new Flutter project.
 
@@ -14,3 +14,19 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+TODO
+[ ] Shuffle station
+[ ] Genre filters
+[ ] Recents
+Favorites
+Filter by genre and country
+
+- Download only stations with images
+- Save static images in assets
+  - Header
+  - Place holder
+- Create app icon
+
+
+

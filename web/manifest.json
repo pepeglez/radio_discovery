@@ -1,6 +1,6 @@
 {
-    "name": "labhouse_radio_station",
-    "short_name": "labhouse_radio_station",
+    "name": "radio_discovery",
+    "short_name": "radio_discovery",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
