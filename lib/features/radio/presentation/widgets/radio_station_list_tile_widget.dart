@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
+import 'package:radio_discovery/features/radio/presentation/widgets/station_card_widget.dart';
 import 'package:radio_discovery/features/radio/presentation/widgets/tag_list_widget.dart';
 
 class RadioStationListTileWidget extends StatelessWidget {
@@ -19,24 +20,10 @@ class RadioStationListTileWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10), // Adjust as needed
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10), // Adjust as needed
-              child: Image.network(
-                height: 80,
-                width: 80,
-                radioStation.favicon.isNotEmpty
-                    ? radioStation.favicon
-                    : 'https://via.placeholder.com/150',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(width: 20), // Adjust as needed
+          SizedBox(
+              height: 100,
+              child: StationCardWidget(radioStation: radioStation)),
+          const SizedBox(width: 20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

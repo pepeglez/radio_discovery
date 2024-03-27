@@ -12,7 +12,7 @@ class RadioStationRemoteDatasourceImpl implements RadioStationRemoteDatasource {
   Future<Either<String, List<RadioStation>>> getRadioStations() async {
     try {
       final response = await _dio
-          .get('/json/stations/bytag/house?limit=10&order=votes&reverse=true');
+          .get('/json/stations/bytag/jazz?limit=$limit&order=votes&reverse=true');
       if (response.statusCode == 200) {
         debugPrint('Response: ${response.data}');
         final List<dynamic> list = response.data;

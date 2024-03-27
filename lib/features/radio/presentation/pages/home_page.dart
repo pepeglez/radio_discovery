@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_discovery/core/presentation/router/app_router.dart';
 import 'package:radio_discovery/core/presentation/widgets/my_flexible_app_bar.dart';
+import 'package:radio_discovery/core/presentation/widgets/my_floating_action_button.dart';
 import 'package:radio_discovery/features/radio/presentation/bloc/home_cubit.dart';
 import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
 import 'package:radio_discovery/features/radio/presentation/helpers/radio_player_helper.dart';
@@ -40,49 +41,55 @@ class HomePage extends StatelessWidget {
               Icons.radio,
               color: Colors.white,
             ),
-            title: 'Station discovery',
+            title: 'Radio Discovery',
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               <Widget>[
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    return StationHorizontalListWidget(
-                      title: 'My favorites',
-                      icons: Icons.favorite,
-                      listItemSize: ListItemSize.small,
-                      radioStations: state.favoritesRadioStations,
-                      onRadioStationClicked: (radioStation) {
-                        context
-                            .read<RadioPlayerCubit>()
-                            .playPauseRadioStation(radioStation);
-                        showRadioPlayer(context, radioStation, onPlayPause: () {
-                          context
-                              .read<RadioPlayerCubit>()
-                              .playPauseRadioStation(radioStation);
-                        });
-                      },
-                    );
+                    return state.favoritesRadioStations.isNotEmpty
+                        ? StationHorizontalListWidget(
+                            title: 'My favorites',
+                            icons: Icons.favorite,
+                            listItemSize: ListItemSize.small,
+                            radioStations: state.favoritesRadioStations,
+                            onRadioStationClicked: (radioStation) {
+                              context
+                                  .read<RadioPlayerCubit>()
+                                  .playPauseRadioStation(radioStation);
+                              showRadioPlayer(context, radioStation,
+                                  onPlayPause: () {
+                                context
+                                    .read<RadioPlayerCubit>()
+                                    .playPauseRadioStation(radioStation);
+                              });
+                            },
+                          )
+                        : const SizedBox.shrink();
                   },
                 ),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    return StationHorizontalListWidget(
-                      title: 'Recently played',
-                      icons: Icons.history,
-                      listItemSize: ListItemSize.large,
-                      radioStations: state.recentRadioStations,
-                      onRadioStationClicked: (radioStation) {
-                        context
-                            .read<RadioPlayerCubit>()
-                            .playPauseRadioStation(radioStation);
-                        showRadioPlayer(context, radioStation, onPlayPause: () {
-                          context
-                              .read<RadioPlayerCubit>()
-                              .playPauseRadioStation(radioStation);
-                        });
-                      },
-                    );
+                    return state.recentRadioStations.isNotEmpty
+                        ? StationHorizontalListWidget(
+                            title: 'Recently played',
+                            icons: Icons.history,
+                            listItemSize: ListItemSize.large,
+                            radioStations: state.recentRadioStations,
+                            onRadioStationClicked: (radioStation) {
+                              context
+                                  .read<RadioPlayerCubit>()
+                                  .playPauseRadioStation(radioStation);
+                              showRadioPlayer(context, radioStation,
+                                  onPlayPause: () {
+                                context
+                                    .read<RadioPlayerCubit>()
+                                    .playPauseRadioStation(radioStation);
+                              });
+                            },
+                          )
+                        : const SizedBox.shrink();
                   },
                 ),
                 BlocBuilder<HomeCubit, HomeState>(
@@ -130,10 +137,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.shuffle),
-      ),
+      floatingActionButton: MyFloatingActionButton(onPressed: () {
+        context.read<RadioPlayerCubit>().playRadomStation();
+      },),
     );
   }
 }
+
+

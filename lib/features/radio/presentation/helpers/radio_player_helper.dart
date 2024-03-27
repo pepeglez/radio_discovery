@@ -9,7 +9,7 @@ void showRadioPlayer(BuildContext myContext, RadioStation radioStation,
     useRootNavigator: true,
     isScrollControlled: true,
     builder: (context) {
-      return MediaPlayerWidget(
+      return RadioPlayerWidget(
         radioStation: radioStation,
         onPlayPause: onPlayPause,
         onNext: () {

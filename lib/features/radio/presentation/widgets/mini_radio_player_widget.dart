@@ -38,12 +38,14 @@ class MiniRadioPlayerWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             )),
-            IconButton(
-              icon: radioStatus == RadioStatus.playing
-                  ? const Icon(Icons.pause)
-                  : const Icon(Icons.play_arrow),
-              onPressed: onPlayPause,
-            ),
+            radioStatus == RadioStatus.loading
+                ? const CircularProgressIndicator()
+                : IconButton(
+                    icon: radioStatus == RadioStatus.playing
+                        ? const Icon(Icons.pause)
+                        : const Icon(Icons.play_arrow),
+                    onPressed: onPlayPause,
+                  ),
           ],
         ),
       ),

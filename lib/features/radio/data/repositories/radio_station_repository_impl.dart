@@ -53,6 +53,7 @@ class RadioStationRepositoryImpl implements RadioStationRepository {
   }
 
   Future<void> _storeRadioStations(List<RadioStation> radioStations) async {
+    _radioStations.clear();
     for (var radioStation in radioStations) {
       _radioStations[radioStation.stationUuid] = radioStation;
     }
@@ -89,8 +90,12 @@ class RadioStationRepositoryImpl implements RadioStationRepository {
     return recentRadioStationsResult;
   }
 
-  RadioStation getRadioStation(String id) {
-    return _radioStations[id]!;
+  @override
+  RadioStation getRadomStation() {
+    final List<RadioStation> radioStations = _radioStations.values.toList();
+    final int randomIndex = DateTime.now().microsecondsSinceEpoch %
+        radioStations.length;
+    return radioStations[randomIndex];
   }
 
   @override
@@ -132,6 +137,7 @@ abstract class RadioStationRepository {
   Future<Either<String, List<RadioStation>>> getRecentRadioStations();
   Future<Either<String, List<RadioStation>>> getFavoriteRadioStations();
   Future<bool> isFavorite(RadioStation radioStation);
+  RadioStation getRadomStation();
   Stream<Map<String, RadioStation>> get favoriteRadioStationStream;
   Stream<Map<String, RadioStation>> get recentRadioStationStream;
 }

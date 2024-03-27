@@ -74,9 +74,15 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
         radioStatus: RadioStatus.paused, selectedStationId: null));
   }
 
-  void toggleFavorite(RadioStation station) {
-    _radioStationRepository.toggleFavoriteRadioStation(station);
+  void toggleFavorite() {
+    _radioStationRepository.toggleFavoriteRadioStation(state.selectedStation!);
     emit(state.copyWith(isFavorite: !state.isFavorite));
+  }
+
+  void playRadomStation() {
+    final RadioStation randomStation =
+        _radioStationRepository.getRadomStation();
+    playPauseRadioStation(randomStation);
   }
 
   @override

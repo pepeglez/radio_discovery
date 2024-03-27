@@ -50,11 +50,13 @@ class JustAudioService implements AudioService {
   @override
   Stream<PlayerState> get playerStateStream => _player.playerStateStream;
 
+  @override
   Stream<AudioStatus> get audioStatusStream => _audioStatusController.stream;
 
   JustAudioService() {
     _player.playerStateStream.listen((playerState) {
-      if (playerState.playing) {
+      if (playerState.playing &&
+          playerState.processingState == ProcessingState.ready) {
         _audioStatusController.add(AudioStatus.playing);
         return;
       }
@@ -69,6 +71,7 @@ class JustAudioService implements AudioService {
           _audioStatusController.add(AudioStatus.loading);
           break;
         default:
+          _audioStatusController.add(AudioStatus.paused);
       }
     });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:radio_discovery/core/constants/asset_paths.dart';
 
 class MyFlexibleAppBar extends StatelessWidget {
   final String title;
@@ -47,8 +48,8 @@ class MyFlexibleAppBar extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Image.network(
-                'https://howtostartanllc.com/images/business-ideas/business-idea-images/radio-station.jpg',
+              Image.asset(
+                AssetImages.radioStation,
                 fit: BoxFit.cover,
                 alignment: Alignment.centerLeft,
               ),

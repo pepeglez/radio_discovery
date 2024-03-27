@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_discovery/core/presentation/app_theme.dart';
 import 'package:radio_discovery/core/presentation/widgets/my_flexible_app_bar.dart';
+import 'package:radio_discovery/core/presentation/widgets/my_floating_action_button.dart';
 import 'package:radio_discovery/features/radio/domain/entities/radio_station.dart';
 import 'package:radio_discovery/features/radio/presentation/bloc/radio_payer_cubit.dart';
 import 'package:radio_discovery/features/radio/presentation/bloc/station_list_cubit.dart';
@@ -18,50 +19,51 @@ class StationListPage extends StatelessWidget {
     return BlocBuilder<StationListCubit, StationListState>(
       builder: (context, state) {
         return Scaffold(
-          bottomNavigationBar: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
-            builder: (context, state) {
-              return state.selectedStation != null
-                  ? MiniRadioPlayerWidget(
-                      radioStation: state.selectedStation!,
-                      radioStatus: state.radioStatus,
-                      onPlayPause: () {
-                        context
-                            .read<RadioPlayerCubit>()
-                            .playPauseRadioStation(state.selectedStation!);
-                      },
-                    )
-                  : const SizedBox.shrink();
-            },
-          ),
-          body: CustomScrollView(
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            slivers: <Widget>[
-              MyFlexibleAppBar(
-                title: '# ${state.query}',
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
+            bottomNavigationBar:
+                BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+              builder: (context, state) {
+                return state.selectedStation != null
+                    ? MiniRadioPlayerWidget(
+                        radioStation: state.selectedStation!,
+                        radioStatus: state.radioStatus,
+                        onPlayPause: () {
+                          context
+                              .read<RadioPlayerCubit>()
+                              .playPauseRadioStation(state.selectedStation!);
+                        },
+                      )
+                    : const SizedBox.shrink();
+              },
+            ),
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              slivers: <Widget>[
+                MyFlexibleAppBar(
+                  title: '# ${state.query}',
+                  leading: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
                 ),
-              ),
-              if (state.status == StationListPageStatus.loading)
-                _buildShimmeringList(),
-              if (state.status == StationListPageStatus.success)
-                _buildRadioStationList(state.radioStations, context),
-              if (state.status == StationListPageStatus.error)
-                _buildErrorList(context),
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: const Icon(Icons.shuffle),
-          ),
-        );
+                if (state.status == StationListPageStatus.loading)
+                  _buildShimmeringList(),
+                if (state.status == StationListPageStatus.success)
+                  _buildRadioStationList(state.radioStations, context),
+                if (state.status == StationListPageStatus.error)
+                  _buildErrorList(context),
+              ],
+            ),
+            floatingActionButton: MyFloatingActionButton(
+              onPressed: () {
+                context.read<RadioPlayerCubit>().playRadomStation();
+              },
+            ));
       },
     );
   }
@@ -111,7 +113,7 @@ class StationListPage extends StatelessWidget {
             ),
           );
         },
-        childCount: 10, // Adjust as needed
+        childCount: 10,
       ),
     );
   }
