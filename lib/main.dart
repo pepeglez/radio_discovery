@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         title: 'Radio Discovery',
         theme: lightTheme,
         darkTheme: darkTheme,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.system,
         routerConfig: MyAppRouter.router,
       ),
     );
