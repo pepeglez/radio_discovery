@@ -50,8 +50,8 @@ Contributions are what make the open source community such an amazing place to l
 ### License
 Distributed under the MIT License. See LICENSE for more information.
 
-Contact
-Your Name - pepe.gonzalez.cas@gmail.com
+### Contact
+JOSE GONZALEZ - pepe.gonzalez.cas@gmail.com
 
 Project Link: https://github.com/pepeglez/radio_discovery
 
