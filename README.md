@@ -36,7 +36,7 @@ These instructions will get you a copy of the project up and running on your loc
    flutter pub get
 5. Run the app
    ```sh
-   flutter pub get
+   flutter run
 
 ### Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.

@@ -34,7 +34,7 @@ class RadioStationLocalDataSourceImpl implements RadioStationLocalDataSource {
             .map((item) => RadioStation.fromJson(item))
             .toList());
       } else {
-        return const Left("_local_storage_error");
+        return const Left("No favorites stations found.");
       }
     } catch (e) {
       debugPrint('Error getting favorite stations: $e');

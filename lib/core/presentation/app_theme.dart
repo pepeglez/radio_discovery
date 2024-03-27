@@ -7,7 +7,6 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.grey[200],
   textTheme: textTheme,
   cardColor: Colors.grey[300],
-  // Add other theme properties you need
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -17,7 +16,6 @@ final ThemeData darkTheme = ThemeData(
   cardColor: Colors.grey[800],
   textTheme: textTheme,
   scaffoldBackgroundColor: Colors.grey[900],
-  // Add other theme properties you need
 );
 
 TextTheme textTheme = const TextTheme(

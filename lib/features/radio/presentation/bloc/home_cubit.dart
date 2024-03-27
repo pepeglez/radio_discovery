@@ -15,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._repository) : super(const HomeState());
 
   Future<void> init() async {
-    emit(state.copyWith(status: HomePageStatus.initial));
+    emit(state.copyWith(status: HomePageStatus.loading));
     final radioStationsResult = await _repository.getRadioStations();
     radioStationsResult.fold(
       (failure) => emit(state.copyWith(status: HomePageStatus.error)),

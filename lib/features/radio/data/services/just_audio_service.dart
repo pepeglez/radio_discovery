@@ -28,7 +28,6 @@ class JustAudioService implements AudioService {
     }
   }
 
-  // check if url is with http or https if tru, returns the usrl with https
   String? _checkUrl(String url) {
     if (url.startsWith('http://')) {
       return url.replaceFirst('http://', 'https://');
